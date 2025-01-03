@@ -1,98 +1,137 @@
 # Azure Basic Infrastructure with Terraform
+---
+**A Hands-on Lab for Deploying Basic Infrastructure in Azure using Terraform**
+---
 
-This project demonstrates how to create a basic infrastructure in Azure using Terraform. It includes:
-- **Resource Group**
-- **Virtual Network (VNet)** with two subnets (`default` and `BasicSubnet`)
-- **Ubuntu Virtual Machine (VM)** with a public IP address.
-
-## Resources Created
-- **Resource Group:** BasicInfraRG
-- **Virtual Network:** BasicVNet (10.0.0.0/16)
-  - **Subnets:**
-    - `default` - 10.0.0.0/24
-    - `BasicSubnet` - 10.0.1.0/24
-- **Virtual Machine:** UbuntuVM
-  - Operating System: Ubuntu Server 20.04
-  - Size: Standard B1s (1 vCPU, 1GB RAM)
-  - Public IP: Static, automatically assigned
+This project demonstrates how to create a basic infrastructure in Azure using Terraform. It includes deploying a Resource Group, a Virtual Network (VNet) with subnets, and an Ubuntu Virtual Machine (VM) with a public IP address.
 
 ---
 
-## How to Use
+## Table of Contents
+1. [Project Objectives](#project-objectives)
+2. [Steps Implemented](#steps-implemented)
+3. [Screenshots](#screenshots)
+4. [Tools Used](#tools-used)
+5. [Useful Links](#useful-links)
+6. [License](#license)
+7. [Contributions](#contributions)
 
-### 1. Install Prerequisites
-Make sure you have the following installed:
-- **Terraform CLI:** [Install Guide](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-- **Azure CLI:** [Install Guide](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
-- An active Azure subscription (e.g., Azure Students account).
+---
 
-### 2. Clone this repository
-Run the following commands to clone and navigate to the project directory:
+## Project Objectives
 
-```bash
-git clone https://github.com/dinAlexDu/azure-terraform-basic.git
-cd azure-terraform-basic
-```
+- **Demonstrate Infrastructure as Code (IaC):**  
+  Automate the creation of Azure resources using Terraform.
 
-### 3. Authenticate with Azure
-Log in to your Azure account using Azure CLI:
-```bash
-az login
-```
-If the default az login doesn't work, try:
-```bash
-az login --use-device-code
-```
+- **Deploy a Virtual Network (VNet):**  
+  Set up a Virtual Network with custom address spaces and subnets.
 
-### 4. Initialize Terraform
-Run this command to initialize the Terraform working directory:
-```bash
-terraform init
-```
+- **Launch a Virtual Machine:**  
+  Deploy an Ubuntu VM with SSH access and a public IP address.
 
-### 5. Validate the Configuration
-Verify that the configuration is valid:
-```bash
-terraform validate
-```
+- **Ensure Connectivity:**  
+  Validate secure access to the VM using SSH over port 22.
 
-### 6. Plan and Apply the Infrastructure
-Generate an execution plan to preview the changes:
-```bash
-terraform plan
-```
-Deploy the infrastructure:
-```bash
-terraform apply
-```
+---
+## Steps Implemented
 
-### 7. Connect to the Virtual Machine
-Retrieve the public IP of the VM from the Terraform output or Azure Portal. Then, connect via SSH:
-```bash
-ssh azureuser@<PUBLIC_IP>
-```
-Replace <PUBLIC_IP> with the actual IP address.
+1. **Resources Created:**  
+   - **Resource Group:**  
+     - Name: `BasicInfraRG`  
+
+   - **Virtual Network:**  
+     - Name: `BasicVNet`  
+     - Address Space: `10.0.0.0/16`  
+     - Subnets:  
+       - `default` - `10.0.0.0/24`  
+       - `BasicSubnet` - `10.0.1.0/24`  
+
+   - **Virtual Machine:**  
+     - Name: `UbuntuVM`  
+     - Operating System: Ubuntu Server 20.04  
+     - Size: Standard B1s (1 vCPU, 1GB RAM)  
+     - Public IP: Static, automatically assigned  
+
+2. **Initialize Terraform:**  
+   - Run `terraform init` to prepare the working directory.  
+
+3. **Validate Configuration:**  
+   - Use `terraform validate` to ensure the configuration is correct.  
+
+4. **Plan and Apply Infrastructure:**  
+   - Generate a plan with `terraform plan`.  
+   - Apply the changes using `terraform apply`.  
+
+5. **Test Connectivity:**  
+   - Retrieve the VM's public IP from Terraform output or Azure Portal.  
+   - Connect to the VM using SSH:  
+     ```bash
+     ssh azureuser@<PUBLIC_IP>
+     ```
+
+6. **Cleanup Resources:**  
+   - Avoid unnecessary costs by destroying the infrastructure after use:  
+     ```bash
+     terraform destroy
+     ```
+
+---
+
 
 ## Screenshots
 
-### Virtual Machine in Azure
-![VM Screenshot](images/vm_screenshot.png)
+1. **Resource Group Overview**
+   ![Resource Group](images/resource_group.png)  
+   *Overview of the `BasicInfraRG` Resource Group, displaying associated resources such as the VNet, disk, virtual machine, and public IP.*
 
-### Terraform Output
-![Terraform Output](images/terraform_output.png)
+2. **Terraform Initialization**
+   ![Terraform Init](images/terraform_init.png)  
+   *Output of the `terraform init` command, which initializes the working directory for Terraform.*
 
-### Resources in Azure Portal
-![Resource Group](images/resource_group.png)
+3. **Terraform Execution Plan**
+   ![Terraform Output](images/terraform_output.png)  
+   *Output of the `terraform plan` command, showing the execution plan and resources that will be created.*
 
-### Virtual Network Configuration
-![VNet Configuration](images/vnet_screenshot.png)
+4. **Virtual Network Configuration**
+   ![VNet Configuration](images/vnet_screenshot.png)  
+   *Configuration of the `BasicVNet` Virtual Network, displaying its subnets and the topology view illustrating connectivity between configured resources.*
 
+---
 
-## Cleaning Up
-To avoid unnecessary costs, destroy the infrastructure when you're done:
-```bash
-terraform destroy
-```
+## Tools Used
 
-## Notes:
-This project is intended for learning purposes. Adjustments can be made to customize the infrastructure for your needs.
+- **Terraform CLI:** For writing and executing Infrastructure as Code (IaC).  
+- **Azure CLI:** For authenticating and managing Azure resources.  
+- **SSH:** For secure connectivity to the deployed VM.  
+
+---
+
+## Useful Links
+
+- [Terraform Documentation](https://developer.hashicorp.com/terraform/docs)  
+  Comprehensive guide for using Terraform.  
+
+- [Azure Terraform Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)  
+  Detailed information about the Azure provider for Terraform.  
+
+- [Azure CLI Documentation](https://learn.microsoft.com/en-us/cli/azure/)  
+  Reference guide for Azure CLI commands.  
+
+- [SSH Basics](https://www.ssh.com/academy/ssh)  
+  Beginner’s guide to secure remote access using SSH.  
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).  
+See the LICENSE file for detailed terms and conditions.
+
+---
+
+## Contributions
+
+Contributions are welcome!  
+If you have suggestions for improvements or additional use cases, feel free to [fork this repository](https://github.com/dinAlexDu/azure-terraform-basic) and submit a pull request.  
+
+Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) when contributing to this project.
