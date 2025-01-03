@@ -20,57 +20,66 @@ This project demonstrates how to create a basic infrastructure in Azure using Te
 
 ## Project Objectives
 
-- **Demonstrate Infrastructure as Code (IaC):**  
-  Automate the creation of Azure resources using Terraform.
+- **Create a Resource Group:**  
+  Organize all related Azure resources in a single container.
 
-- **Deploy a Virtual Network (VNet):**  
-  Set up a Virtual Network with custom address spaces and subnets.
+- **Set up a Virtual Network (VNet):**  
+  Configure address spaces and subnets for network management.
 
-- **Launch a Virtual Machine:**  
-  Deploy an Ubuntu VM with SSH access and a public IP address.
+- **Deploy a Virtual Machine:**  
+  Provision an Ubuntu VM with a public IP and SSH access.
 
-- **Ensure Connectivity:**  
-  Validate secure access to the VM using SSH over port 22.
+- **Automate with Terraform:**  
+  Utilize Terraform to manage and deploy the infrastructure.
 
 ---
+
 ## Steps Implemented
 
-1. **Resources Created:**  
-   - **Resource Group:**  
-     - Name: `BasicInfraRG`  
+1. **Initialize Terraform Configuration**  
+   - Used `main.tf` as the primary Terraform configuration file to define resources such as the Resource Group, VNet, Subnets, and VM.
+   - Initialized Terraform in the project directory using:
+     ```bash
+     terraform init
+     ```
 
-   - **Virtual Network:**  
-     - Name: `BasicVNet`  
-     - Address Space: `10.0.0.0/16`  
-     - Subnets:  
+2. **Validate Configuration**  
+   - Validated the syntax and structure of `main.tf`:
+     ```bash
+     terraform validate
+     ```
+
+3. **Generate and Apply Terraform Plan**  
+   - Previewed the changes Terraform would apply:
+     ```bash
+     terraform plan
+     ```
+   - Deployed the infrastructure using:
+     ```bash
+     terraform apply
+     ```
+
+4. **Resources Created**  
+   - **Resource Group:** `BasicInfraRG`  
+   - **Virtual Network:** `BasicVNet`  
+     - **Address Space:** `10.0.0.0/16`  
+     - **Subnets:**  
        - `default` - `10.0.0.0/24`  
        - `BasicSubnet` - `10.0.1.0/24`  
+   - **Virtual Machine:** `UbuntuVM`  
+     - **Operating System:** Ubuntu Server 20.04  
+     - **Size:** Standard B1s (1 vCPU, 1GB RAM)  
+     - **Public IP:** Static, automatically assigned  
 
-   - **Virtual Machine:**  
-     - Name: `UbuntuVM`  
-     - Operating System: Ubuntu Server 20.04  
-     - Size: Standard B1s (1 vCPU, 1GB RAM)  
-     - Public IP: Static, automatically assigned  
-
-2. **Initialize Terraform:**  
-   - Run `terraform init` to prepare the working directory.  
-
-3. **Validate Configuration:**  
-   - Use `terraform validate` to ensure the configuration is correct.  
-
-4. **Plan and Apply Infrastructure:**  
-   - Generate a plan with `terraform plan`.  
-   - Apply the changes using `terraform apply`.  
-
-5. **Test Connectivity:**  
-   - Retrieve the VM's public IP from Terraform output or Azure Portal.  
-   - Connect to the VM using SSH:  
+5. **Connect to the Virtual Machine**  
+   - Retrieved the VM's public IP from the Terraform output and established an SSH connection:
      ```bash
      ssh azureuser@<PUBLIC_IP>
      ```
+     Replace `<PUBLIC_IP>` with the actual IP.
 
-6. **Cleanup Resources:**  
-   - Avoid unnecessary costs by destroying the infrastructure after use:  
+6. **Clean Up Resources**  
+   - To avoid unnecessary costs, destroyed the resources using:
      ```bash
      terraform destroy
      ```
@@ -80,46 +89,46 @@ This project demonstrates how to create a basic infrastructure in Azure using Te
 
 ## Screenshots
 
-1. **Resource Group Overview**
-   ![Resource Group](images/resource_group.png)  
-   *Overview of the `BasicInfraRG` Resource Group, displaying associated resources such as the VNet, disk, virtual machine, and public IP.*
+Below are the screenshots that illustrate the steps:
 
-2. **Terraform Initialization**
-   ![Terraform Init](images/terraform_init.png)  
-   *Output of the `terraform init` command, which initializes the working directory for Terraform.*
+1. **Resource Group Overview**  
+   ![Resource Group Overview](images/resource_group.png)  
+   *List of resources created under the `BasicInfraRG` Resource Group.*
 
-3. **Terraform Execution Plan**
-   ![Terraform Output](images/terraform_output.png)  
-   *Output of the `terraform plan` command, showing the execution plan and resources that will be created.*
+2. **Terraform Initialization**  
+   ![Terraform Initialization](images/terraform_init.png)  
+   *Terraform initialized successfully for the project directory.*
 
-4. **Virtual Network Configuration**
-   ![VNet Configuration](images/vnet_screenshot.png)  
-   *Configuration of the `BasicVNet` Virtual Network, displaying its subnets and the topology view illustrating connectivity between configured resources.*
+3. **Terraform Plan Output**  
+   ![Terraform Plan Output](images/terraform_output.png)  
+   *Preview of the resources to be created, as defined in `main.tf`.*
+
+4. **Virtual Network Overview**  
+   ![Virtual Network Overview](images/vnet_screenshot.png)  
+   *Visualization of the VNet topology and connected resources.*
 
 ---
 
 ## Tools Used
 
-- **Terraform CLI:** For writing and executing Infrastructure as Code (IaC).  
-- **Azure CLI:** For authenticating and managing Azure resources.  
-- **SSH:** For secure connectivity to the deployed VM.  
+- **Terraform CLI:** For managing infrastructure as code.  
+- **Azure CLI:** For authenticating with Azure.  
+- **Visual Studio Code:** For editing `main.tf`.  
+- **Azure Portal:** For resource management and validation.  
+
 
 ---
 
 ## Useful Links
 
 - [Terraform Documentation](https://developer.hashicorp.com/terraform/docs)  
-  Comprehensive guide for using Terraform.  
+  Official documentation for Terraform configuration and management.
 
-- [Azure Terraform Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)  
-  Detailed information about the Azure provider for Terraform.  
+- [Azure Virtual Network Documentation](https://learn.microsoft.com/en-us/azure/virtual-network/)  
+  Comprehensive guide to configuring VNets in Azure.
 
-- [Azure CLI Documentation](https://learn.microsoft.com/en-us/cli/azure/)  
-  Reference guide for Azure CLI commands.  
-
-- [SSH Basics](https://www.ssh.com/academy/ssh)  
-  Beginner’s guide to secure remote access using SSH.  
-
+- [Azure Virtual Machine Documentation](https://learn.microsoft.com/en-us/azure/virtual-machines/)  
+  Guide for deploying and managing Azure VMs.
 ---
 
 ## License
